@@ -38,14 +38,23 @@ window.addEventListener("DOMContentLoaded", () => {
   showTabContent(0);
 
   // Timer
-  const deadline = "2024-12-25";
+  const deadline = "2024-03-25";
 
   function getTimeRemaining(endtime) {
-    const t = Date.parse(endtime) - Date.parse(new Date()), //кол во милисекунд до которого нам нужно досчитать
-      days = Math.floor(t / (1000 * 60 * 60 * 24)), //это сутки до окончания даты
-      hours = Math.floor((t / (1000 * 60 * 60)) % 24),
-      minutes = Math.floor((t / (1000 * 60)) % 60),
-      seconds = Math.floor((t / 1000) % 60);
+    let days, hours, minutes, seconds;
+    const t = Date.parse(endtime) - Date.parse(new Date()); //кол во милисекунд до которого нам нужно досчитать
+
+    if (t <= 0) {
+      days = 0;
+      hours = 0;
+      minutes = 0;
+      seconds = 0;
+    } else {
+      (days = Math.floor(t / (1000 * 60 * 60 * 24))), //это сутки до окончания даты
+        (hours = Math.floor((t / (1000 * 60 * 60)) % 24)),
+        (minutes = Math.floor((t / (1000 * 60)) % 60)),
+        (seconds = Math.floor((t / 1000) % 60));
+    }
 
     return {
       total: t,
@@ -56,14 +65,13 @@ window.addEventListener("DOMContentLoaded", () => {
     };
   }
 
-function getZero(num) {
-  if(num >=0 && num < 10) {
-    return `0${num}`
-  } else {
-    return num;
+  function getZero(num) {
+    if (num >= 0 && num < 10) {
+      return `0${num}`;
+    } else {
+      return num;
+    }
   }
-}
-
 
   function setClock(selector, endtime) {
     const timer = document.querySelector(selector);
@@ -89,5 +97,5 @@ function getZero(num) {
     }
   }
 
-  setClock(".timer", deadline)
+  setClock(".timer", deadline);
 });
