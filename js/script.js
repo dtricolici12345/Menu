@@ -38,7 +38,7 @@ window.addEventListener("DOMContentLoaded", () => {
   showTabContent(0);
 
   // Timer
-  const deadline = "2024-03-25";
+  const deadline = "2024-09-25";
 
   function getTimeRemaining(endtime) {
     let days, hours, minutes, seconds;
@@ -98,4 +98,46 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 
   setClock(".timer", deadline);
+
+  // Modal
+
+  const modalTrigger = document.querySelectorAll("[data-modal]"),
+    modal = document.querySelector(".modal"),
+    modalCloseBtn = document.querySelector("[data-close]");
+
+  modalTrigger.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      modal.classList.toggle("show");
+      // modal.classList.add("show"), modal.classList.remove("hide");
+      document.body.style.overflow = "hidden";
+    });
+  });
+
+function closeModal() {
+   // modal.classList.add("hide"), modal.classList.remove("show");
+   modal.classList.toggle("show");
+   document.body.style.overflow = "";
+}
+
+
+  modalCloseBtn.addEventListener("click", closeModal)
+ 
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      closeModal()
+    }
+  });
+
+
+
+document.addEventListener('keydown', (e) => {
+
+  if (e.code === "Espace" && modal.classList.contains('show')) {
+    closeModal()
+  }
+})
+
+
+
 });
